@@ -73,3 +73,5 @@ And my system's response will be something like this :
   }
 }
 ```
+
+**I care about separation of concern, which in this context means, te HTTP route should not know about which LLM is used for creating the response. **
