@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from src.phase_1.ChatRequest import ChatRequest
-from src.phase_1.ChatResponse import ChatResponse
+from src.phase_1.api.chat.ChatRequest import ChatRequest
+from src.phase_1.api.chat.ChatResponse import ChatResponse
 
 """
 Our router wires the client and its responses to the server and responses that will be 
