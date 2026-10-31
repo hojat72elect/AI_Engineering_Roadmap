@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from phase_1.ApiRouter import router as chatRouter
+from src.phase_1.ApiRouter import router as chatRouter
 
 def createApp() -> FastAPI:
     fastApiApp = FastAPI(title="App phase 1", version="0.0.1")
