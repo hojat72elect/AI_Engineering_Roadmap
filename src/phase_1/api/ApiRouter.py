@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from phase_1.api.Dependencies import getLlmProvider
-from phase_1.api.llm.OpenAiProvider import OpenAiProvider
+
+from phase_1.api.chat.ChatService import ChatService
 from src.phase_1.api.chat.ChatRequest import ChatRequest
 from src.phase_1.api.chat.ChatResponse import ChatResponse
 
@@ -11,11 +11,8 @@ Right now it just mirrors back the request.
 """
 router = APIRouter(prefix="/chat", tags=["chat"])
 
-@router.post("/ask", response_model=ChatResponse)
-async def askQuestion(request: ChatRequest, llm: OpenAiProvider = Depends(getLlmProvider)) -> ChatResponse:
-    response = await llm.generate(
-        system_prompt="You are a helpful AI assistant. " "Answer clearly and accurately.",
-        user_message=request.question
-    )
 
-    return ChatResponse(answer=response.content)
+@router.post("/ask", response_model=ChatResponse)
+async def askQuestion(request: ChatRequest, chatService: ChatService = Depends(getChatServic)) -> ChatResponse:
+    answer = await chatService.ask(question=request.question)
+    return ChatResponse(answer=answer)
