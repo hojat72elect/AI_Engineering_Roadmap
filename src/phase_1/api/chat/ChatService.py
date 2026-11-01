@@ -1,4 +1,4 @@
-from phase_1.api.llm.BaseLlmProvider import BaseLlmProvider
+from src.phase_1.api.llm.BaseLlmProvider import BaseLlmProvider
 
 class ChatService:
     """

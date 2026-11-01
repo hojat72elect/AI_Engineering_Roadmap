@@ -3,9 +3,9 @@ Inside the `api` directory, if there's need for dependency injection, the functi
 """
 from functools import lru_cache
 from fastapi import Depends
-from phase_1.Settings import getSettings
-from phase_1.api.chat.ChatService import ChatService
-from phase_1.api.llm.OpenAiProvider import OpenAiProvider
+from src.phase_1.Settings import getSettings
+from src.phase_1.api.chat.ChatService import ChatService
+from src.phase_1.api.llm.OpenAiProvider import OpenAiProvider
 
 @lru_cache
 def getLlmProvider() -> OpenAiProvider:

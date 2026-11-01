@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from phase_1.api.llm.LlmResponse import LlmResponse
+from src.phase_1.api.llm.LlmResponse import LlmResponse
 
 class BaseLlmProvider(ABC):
     """

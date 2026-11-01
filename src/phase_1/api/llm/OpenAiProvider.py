@@ -1,7 +1,7 @@
 from openai import AsyncOpenAI
-from phase_1.Settings import Settings
-from phase_1.api.llm.BaseLlmProvider import BaseLlmProvider
-from phase_1.api.llm.LlmResponse import LlmResponse
+from src.phase_1.Settings import Settings
+from src.phase_1.api.llm.BaseLlmProvider import BaseLlmProvider
+from src.phase_1.api.llm.LlmResponse import LlmResponse
 
 class OpenAiProvider(BaseLlmProvider):
     def __init__(self, settings: Settings):

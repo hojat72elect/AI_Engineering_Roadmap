@@ -5,10 +5,10 @@ class Settings(BaseSettings):
     """
     The communication between client and server should always follow this setting.
     """
-    appName = "phase 1 project"
+    appName: str = "phase 1 project"
     openaiApiKey: str
-    openaiModel = "gpt-4.1-mini"
-    environment = "development"
+    openaiModel: str = "gpt-4.1-mini"
+    environment: str = "development"
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 @lru_cache

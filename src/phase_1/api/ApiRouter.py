@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-
-from phase_1.api.chat.ChatService import ChatService
+from src.phase_1.api.Dependencies import getChatService
+from src.phase_1.api.chat.ChatService import ChatService
 from src.phase_1.api.chat.ChatRequest import ChatRequest
 from src.phase_1.api.chat.ChatResponse import ChatResponse
 
@@ -13,6 +13,6 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 
 
 @router.post("/ask", response_model=ChatResponse)
-async def askQuestion(request: ChatRequest, chatService: ChatService = Depends(getChatServic)) -> ChatResponse:
+async def askQuestion(request: ChatRequest, chatService: ChatService = Depends(getChatService)) -> ChatResponse:
     answer = await chatService.ask(question=request.question)
     return ChatResponse(answer=answer)
