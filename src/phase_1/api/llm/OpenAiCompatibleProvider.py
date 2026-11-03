@@ -1,5 +1,5 @@
 from time import perf_counter
-from openai import APIConnectionError, AsyncOpenAI, OpenAIError, RateLimitError
+from openai import APIConnectionError, AsyncOpenAI, InternalServerError, OpenAIError, RateLimitError
 from src.phase_1.Settings import Settings
 from src.phase_1.api.llm.BaseLlmProvider import BaseLlmProvider
 from src.phase_1.api.llm.LlmError import LlmError
@@ -11,7 +11,11 @@ class OpenAiCompatibleProvider(BaseLlmProvider):
     shares this implementation; a subclass only decides which endpoint is called.
     """
     def __init__(self, *, settings: Settings, baseUrl: str | None = None):
-        self.client = AsyncOpenAI(api_key=settings.providerApiKey, base_url=baseUrl)
+        self.client = AsyncOpenAI(
+            api_key=settings.providerApiKey,
+            base_url=baseUrl,
+            max_retries=settings.llmMaxRetries
+        )
         self.model = settings.providerModel
 
     async def generate(self, *, system_prompt: str, user_message: str) -> LlmResponse:
@@ -29,6 +33,9 @@ class OpenAiCompatibleProvider(BaseLlmProvider):
             # Rate limits and an exhausted free-tier quota both mean "come back later", not "our code broke".
             raise LlmError(str(error), statusCode=429) from error
         except APIConnectionError as error:
+            raise LlmError(str(error), statusCode=503) from error
+        except InternalServerError as error:
+            # The provider itself is down. The SDK has already retried, so the client should back off too.
             raise LlmError(str(error), statusCode=503) from error
         except OpenAIError as error:
             # Every SDK failure is re-raised as our own error, so callers never import the openai package.

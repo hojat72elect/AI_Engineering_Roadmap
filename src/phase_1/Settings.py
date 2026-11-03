@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     geminiApiKey: str | None = Field(default=None, validation_alias=AliasChoices("GEMINI_API_KEY", "geminiApiKey"))
     geminiModel: str = Field(default="gemini-3.6-flash", validation_alias=AliasChoices("GEMINI_MODEL", "geminiModel"))
 
+    # The SDK retries connection errors and 5xx responses with exponential backoff; this is how many times.
+    llmMaxRetries: int = Field(default=2, validation_alias=AliasChoices("LLM_MAX_RETRIES", "llmMaxRetries"))
+
     environment: str = "development"
     model_config = SettingsConfigDict(env_file=ENV_FILE_PATH, env_file_encoding="utf-8", extra="ignore")
 
