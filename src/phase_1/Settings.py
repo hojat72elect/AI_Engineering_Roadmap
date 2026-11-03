@@ -23,7 +23,9 @@ class Settings(BaseSettings):
     openaiModel: str = Field(default="gpt-4.1-mini", validation_alias=AliasChoices("OPENAI_MODEL", "openaiModel"))
 
     geminiApiKey: str | None = Field(default=None, validation_alias=AliasChoices("GEMINI_API_KEY", "geminiApiKey"))
-    geminiModel: str = Field(default="gemini-3.6-flash", validation_alias=AliasChoices("GEMINI_MODEL", "geminiModel"))
+    # Google retires pinned model names, and a retired name answers 404 instead of answering questions,
+    # so the default is the alias that always points at the current flash model.
+    geminiModel: str = Field(default="gemini-flash-latest", validation_alias=AliasChoices("GEMINI_MODEL", "geminiModel"))
 
     # The SDK retries connection errors and 5xx responses with exponential backoff; this is how many times.
     llmMaxRetries: int = Field(default=2, validation_alias=AliasChoices("LLM_MAX_RETRIES", "llmMaxRetries"))
