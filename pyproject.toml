@@ -11,3 +11,8 @@ dependencies = [
     "ttkbootstrap>=2.2.6",
     "uvicorn[standard]>=0.54.0",
 ]
+
+[tool.uv.workspace]
+members = [
+    "navid_agent",
+]
